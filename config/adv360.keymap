@@ -27,7 +27,6 @@
 
             #binding-cells = <2>;
             tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
             flavor = "balanced";
             hold-trigger-on-release;
@@ -41,11 +40,38 @@
 
             #binding-cells = <2>;
             tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
             flavor = "balanced";
             hold-trigger-key-positions = <0 1 2 3 4 5 6 14 15 16 17 18 19 20 28 29 30 31 32 33 34 35 36 46 47 48 49 50 51 52 60 61 62 63 64 65 66 67>;
             hold-trigger-on-release;
+        };
+
+        paren_angle_left: paren_angle_left {
+            compatible = "zmk,behavior-mod-morph";
+            label = "PAREN_ANGLE_LEFT";
+            bindings = <&kp LEFT_PARENTHESIS>, <&kp LESS_THAN>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        paren_angle_right: paren_angle_right {
+            compatible = "zmk,behavior-mod-morph";
+            label = "PAREN_ANGLE_RIGHT";
+            bindings = <&kp RIGHT_PARENTHESIS>, <&kp LESS_THAN>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        layer_tap: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LAYER_TAP";
+            bindings = <&mo>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <175>;
+            flavor = "balanced";
         };
     };
 
@@ -54,31 +80,41 @@
 
         default_layer {
             bindings = <
-&kp EQUAL  &kp N1                         &kp N2                         &kp N3                           &kp N4                             &kp N5  &tog 1                                          &mo 3      &kp N6  &kp N7                          &kp N8                        &kp N9                      &kp N0                      &kp MINUS
-&kp TAB    &kp Q                          &kp W                          &kp F                            &kp P                              &kp T   &none                                           &none      &kp J   &kp L                           &kp U                         &kp Y                       &kp SEMICOLON               &kp BSLH
-&kp ESC    &home_row_mod_left LEFT_GUI A  &home_row_mod_left LEFT_ALT R  &home_row_mod_left LEFT_SHIFT S  &home_row_mod_left LEFT_CONTROL T  &kp G   &none     &none    &none      &none  &none      &none      &kp M   &home_row_right LEFT_CONTROL N  &home_row_right LEFT_SHIFT E  &home_row_right LEFT_ALT I  &home_row_right LEFT_GUI O  &kp SQT
-&kp LSHFT  &kp Z                          &kp X                          &kp C                            &kp D                              &kp V                      &none      &none                        &kp K   &kp H                           &kp COMMA                     &kp DOT                     &kp FSLH                    &kp RSHFT
-&mo 2      &kp GRAVE                      &kp CAPS                       &kp LEFT                         &kp RIGHT                                  &kp BSPC  &kp DEL  &none      &none  &kp ENTER  &kp SPACE          &kp UP                          &kp DOWN                      &kp LBKT                    &kp RBKT                    &mo 2
+&kp EQUAL  &kp N1                         &kp N2                         &kp N3                           &kp N4                             &kp N5  &none                                                                     &mo 4               &kp N6  &kp N7                          &kp N8                        &kp N9                      &kp N0                      &kp MINUS
+&kp TAB    &kp Q                          &kp W                          &kp F                            &kp P                              &kp T   &none                                                                     &none               &kp J   &kp L                           &kp U                         &kp Y                       &kp SEMICOLON               &kp BSLH
+&kp ESC    &home_row_mod_left LEFT_GUI A  &home_row_mod_left LEFT_ALT R  &home_row_mod_left LEFT_SHIFT S  &home_row_mod_left LEFT_CONTROL T  &kp G   &none                   &none                &none      &none  &none      &none               &kp M   &home_row_right LEFT_CONTROL N  &home_row_right LEFT_SHIFT E  &home_row_right LEFT_ALT I  &home_row_right LEFT_GUI O  &kp SQT
+&kp LSHFT  &kp Z                          &kp X                          &kp C                            &kp D                              &kp V                                                &none      &none                                 &kp K   &kp H                           &kp COMMA                     &kp DOT                     &kp FSLH                    &kp RSHFT
+&none      &kp GRAVE                      &kp LEFT_BRACKET               &kp RIGHT_BRACKET                &none                                      &layer_tap 2 BACKSPACE  &layer_tap 1 DELETE  &none      &none  &kp ENTER  &layer_tap 3 SPACE          &none                           &paren_angle_left             &paren_angle_right          &kp BACKSLASH               &none
             >;
         };
 
-        layer_keypad {
+        number {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &trans                                                   &mo 3      &kp N6  &kp KP_NUM  &kp KP_EQUAL  &kp KP_DIVIDE  &kp KP_MULTIPLY  &kp MINUS
-&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &none                                                    &none      &kp Y   &kp KP_N7   &kp KP_N8     &kp KP_N9      &kp KP_MINUS     &kp BSLH
-&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &none     &kp LCTRL  &kp LALT      &kp LGUI   &kp RCTRL  &none      &kp H   &kp KP_N4   &kp KP_N5     &kp KP_N6      &kp KP_PLUS      &kp SQT
-&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                        &kp HOME      &kp PG_UP                        &kp N   &kp KP_N1   &kp KP_N2     &kp KP_N3      &kp KP_ENTER     &kp RSHFT
-&mo 2      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BSPC  &kp DEL    &kp END       &kp PG_DN  &kp ENTER  &kp KP_N0          &kp UP      &kp DOWN      &kp KP_DOT     &kp RBKT         &mo 2
+&kp ESCAPE  &kp ENTER       &kp SPACE     &kp TAB         &kp DELETE        &kp INSERT  &trans                                                     &mo 4   &kp TILDE  &kp CARET         &kp HASH           &kp DOLLAR          &kp EXCLAMATION  &kp AT_SIGN
+&none       &sk LEFT_SHIFT  &kp K_REDO    &kp K_UNDO      &kp BACKSPACE     &none       &none                                                      &none   &kp Y      &kp N7            &kp N8             &kp N9              &kp COLON        &kp PERCENT
+&none       &kp LEFT_GUI    &kp LEFT_ALT  &kp LEFT_SHIFT  &kp LEFT_CONTROL  &none       &none   &none  &none      &kp LESS_THAN  &kp GREATER_THAN  &none   &kp H      &kp NUMBER_4      &kp N5             &kp NUMBER_6        &kp MINUS        &kp PLUS
+&none       &none           &none         &none           &none             &none                      &none      &kp COMMA                                &kp N      &kp NUMBER_1      &kp NUMBER_2       &kp NUMBER_3        &kp SLASH        &kp ASTERISK
+&mo 2       &none           &none         &none           &none                         &none   &none  &none      &kp PERIOD     &kp EQUAL         &kp N0             &kp LEFT_BRACKET  &paren_angle_left  &paren_angle_right  &kp RBKT         &mo 2
             >;
         };
 
-        layer_fn {
+        function {
             bindings = <
-&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 1                                      &mo 3   &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
-&trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none   &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans   &trans   &trans
+&kp ESCAPE  &kp ENTER       &kp SPACE     &kp TAB         &kp DELETE        &kp INSERT  &tog 1                                                         &mo 4            &none  &kp C_PLAY  &kp C_PREV  &kp C_NEXT  &kp C_STOP  &kp C_EJECT
+&none       &sk LEFT_SHIFT  &kp K_REDO    &kp K_UNDO      &kp BACKSPACE     &none       &none                                                          &none            &none  &kp F7      &kp F8      &kp F9      &kp F10     &none
+&none       &kp LEFT_GUI    &kp LEFT_ALT  &kp LEFT_SHIFT  &kp LEFT_CONTROL  &none       &none   &none  &none      &kp C_PREV        &kp C_NEXT         &none            &none  &kp F4      &kp F5      &kp F6      &kp F11     &none
+&none       &none           &none         &none           &none             &none                      &none      &kp K_MUTE                                            &none  &kp F1      &kp F2      &kp F3      &kp F11     &none
+&none       &none           &none         &none           &none                         &none   &none  &none      &kp C_PLAY_PAUSE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP         &none       &none       &none       &none       &none
+            >;
+        };
+
+        symbol {
+            bindings = <
+&kp GRAVE        &kp LEFT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACKET  &kp PERIOD    &none                                                       &none  &none              &sk LEFT_CONTROL  &sk LEFT_SHIFT  &sk LEFT_ALT  &sk LEFT_GUI     &none
+&kp EXCLAMATION  &kp COMMA         &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp SEMICOLON      &kp QUESTION  &none                                                       &none  &kp GRAVE          &kp LEFT_ARROW    &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT_ARROW  &kp HOME
+&kp HASH         &kp CARET         &kp EQUAL             &kp UNDERSCORE         &kp DOLLAR         &kp ASTERISK  &none        &kp BACKSLASH  &kp PERIOD        &none  &none  &none  &kp DOUBLE_QUOTES  &kp BACKSPACE     &kp TAB         &kp SPACE     &kp ENTER        &kp END
+&kp TILDE        &kp LESS_THAN     &kp PIPE              &kp MINUS              &kp GREATER_THAN   &kp SLASH                                 &kp ASTERISK      &none                &kp SINGLE_QUOTE   &kp DELETE        &kp LS(TAB)     &none         &none            &none
+&none            &kp AMPERSAND     &kp SQT               &kp DOUBLE_QUOTES      &kp PLUS                         &kp PERCENT  &kp COLON      &kp AT_SIGN       &none  &none  &none                     &kp K_UNDO        &kp K_REDO      &none         &none            &none
             >;
         };
 
