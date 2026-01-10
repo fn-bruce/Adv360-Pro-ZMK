@@ -58,7 +58,7 @@
         paren_angle_right: paren_angle_right {
             compatible = "zmk,behavior-mod-morph";
             label = "PAREN_ANGLE_RIGHT";
-            bindings = <&kp RIGHT_PARENTHESIS>, <&kp LESS_THAN>;
+            bindings = <&kp RIGHT_PARENTHESIS>, <&kp GREATER_THAN>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
